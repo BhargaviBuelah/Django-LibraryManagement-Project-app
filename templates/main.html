@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block 'main' %}
+<div class="col-md-12 mt-5">
+  <div class="mb-3">
+  <h3 ><span class="text-danger">Book Admin Panel</span>
+    &nbsp;&nbsp;&nbsp;
+    <span><a href="logout"><button class="btn btn-danger text-white">Logout</button></a></span>
+  </h3>
+</div>
+  <hr>
+</div>
+
+<div class="col-md-4 mt-5">
+    <h4>Enter Book Details</h4> 
+    <hr>
+  <form method="POST" action="">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+        <label for="bname" class="form-label">Title</label>
+        <input type="text" class="form-control" id="bname" name="bname" placeholder="Enter Book Title" required>
+    </div>
+    <div class="mb-3">
+        <label for="bdesc" class="form-label">Description</label>
+        <textarea class="form-control" id="bdesc" name="bdesc" rows="1" placeholder="Enter Book Description" required></textarea>
+    </div>
+    <div class="mb-3">
+        <label for="bauthor" class="form-label">Author</label>
+        <input type="text" class="form-control" id="bauthor" name="bauthor" placeholder="Enter Author" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="copies" class="form-label">Number Of copies</label>
+        <input type="number" class="form-control" id="copies" name="copies" placeholder="09" required>
+    </div>
+    <div class="mb-3">
+        <label for="bprice" class="form-label">Book price</label>
+        <input type="number" class="form-control" id="price" name="bprice" placeholder="Enter Book price" required>
+    </div>
+    <div class="mb-3">
+    <select class="form-select" name="cat" aria-label="Default select example" >
+        <option selected>Select Category</option>
+        <option value="F">Fiction</option>
+        <option value="S">Sci-Fi</option>
+        <option value="Ph">Philosophy</option>
+        <option value="P">Poetry</option>
+        <option value="D">Drama</option>
+      </select>
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-primary" type="submit">Save</button>
+    </div>
+  </form>
+</div>
+    
+<div class="col-md-8 mt-5">
+    <h4>BOOK Details</h4> 
+      <hr>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Description</th>
+          <th scope="col">Author Name</th>
+          <th scope="col">Copies Available</th>
+          <th scope="col">Price(RS.)</th>
+          <th scope="col">Category</th>
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+  
+      <tbody>
+          {% for x in data %}
+          <tr>
+            <td>{{x.bname}}</td>
+            <td>{{x.bdesc}}</td>
+            <td>{{x.bauthor}}</td>
+            <td>{{x.copies}}</td>
+            <td>{{x.price}}</td>
+            <!--<td>{{x.cat}}</td>-->
+            {% if x.cat == 'F' %}
+            <td>Fiction</td>
+            {% elif x.cat == 'S' %}
+            <td>Sci-Fi</td>
+            {% elif x.cat == 'Ph' %}
+            <td>Philosophy</td>
+            {% elif x.cat == 'P' %}
+            <td>Poetry</td>
+            {% elif x.cat == 'D' %}
+            <td>Drama</td>
+            {% endif %}
+            <td><a href="/edit/{{x.id}}"><button class="btn btn-warning">Edit</button></a></td>
+            <td><a href="/delete/{{x.id}}"><button class="btn btn-danger">Delete</button></a></td>
+           </tr>
+           {% endfor %}
+      </tbody>
+  
+    </table>
+  </div>
+  <div class="col-md-4 mt-5">
+    <h4>Filter By Category</h4>
+    <hr>
+    <p><a href="/main">All</a></p>
+    <p><a href="/filter/fict">By Fiction</a></p>
+    <p><a href="/filter/sci">By Sci-Fi</a></p>
+    <p><a href="/filter/phil">By Philosophy</a></p>
+    <p><a href="/filter/poetry">By Poetry</a></p>
+    <p><a href="/filter/drama">By Drama</a></p>
+  
+  </div>
+  <div class="col-md-4 mt-5">
+    <h4>Sort By Price</h4>
+    <hr>
+    <p><a href="/main">All</a></p>
+    <p><a href="/sort/htol">High To Low</a></p>
+    <p><a href="/sort/ltoh">Low to High</a></p>
+  </div>
+  <div class="col-md-4 mt-5">
+    <h4>Sort By Author Name</h4>
+    <hr>
+    <p><a href="/main">All</a></p>
+    <p><a href="/sortname/atoz">A To Z</a></p>
+    <p><a href="/sortname/ztoa">Z to A</a></p>
+  </div>
+  
+
+
+{% endblock 'main' %}

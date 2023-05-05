@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block 'main' %}
+
+
+<div class="col-md-4 mt-5">
+    <h4>Update Book Details</h4> 
+    <hr>
+  <form method="POST" action="">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+        <label for="bname" class="form-label">Title</label>
+        <input type="text" class="form-control" id="bname" value="{{data.bname}}" name="bname" placeholder="Enter Book Title" required>
+    </div>
+    <div class="mb-3">
+        <label for="bdesc" class="form-label">Description</label>
+        <textarea class="form-control" id="bdesc" name="bdesc" rows="1" placeholder="Enter Book Description" required>{{data.bdesc}}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="bauthor" class="form-label">Author</label>
+        <input type="text" class="form-control" id="bauthor" value="{{data.bauthor}}" name="bauthor" placeholder="Enter Author" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="copies" class="form-label">Number Of copies</label> 
+        <input type="number" class="form-control" id="copies" name="copies" value="{{data.copies}}" placeholder="09" required>
+    </div>
+    <div class="mb-3">
+        <label for="bprice" class="form-label">Book price</label>
+        <input type="number" class="form-control" id="price"  value="{{data.price}}"  name="bprice" placeholder="Enter Book price" required>
+    </div>
+    <div class="mb-3">
+    <select class="form-select" name="cat" value="" aria-label="Default select example" >
+        {% if data.cat == 'F' %}
+        <option value="F" selected>Fiction</option>
+        {% elif data.cat == 'S' %}
+        <option value="S" selected>Sci-Fi</option>
+        {% elif data.cat == 'Ph' %}
+        <option value="Ph" selected>Philosophy</option>
+        {% elif data.cat == 'P' %}
+        <option value="P" selected>Poetry</option>
+        {% elif data.cat == 'D' %}
+        <option value="D" selected>Drama</option>
+        {% endif %}
+        <option value="F">Fiction</option>
+        <option value="S">Sci-Fi</option>
+        <option value="Ph">Philosophy</option>
+        <option value="P">Poetry</option>
+        <option value="D">Drama</option> 
+      </select>
+    </div>
+    <div class="mb-3">
+        <button class="btn btn-primary" type="submit">Update Book</button>
+    </div>
+
+  </form>
+</div>
+    
+{% endblock 'main' %}
